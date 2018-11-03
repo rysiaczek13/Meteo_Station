@@ -14,7 +14,6 @@ DHT dht(DHTPIN, DHTTYPE);
 RF24 myRadio (9, 10);
 Adafruit_BMP280 bmp;
 
-int BATTERY_SENSE_PIN = A0;
 byte addresses[][6] = {"0"};
 struct package
 {
@@ -45,7 +44,6 @@ void setup() {
 void loop() {
   LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
   readSensors();
-  // readBatteryStatus();
   myRadio.write(&data, sizeof(data)); 
   delay(1000);
 }
@@ -72,18 +70,6 @@ void readSensors() {
   Serial.print("Errors: ");
   Serial.println(data.errors);
 }
-
-// void readBatteryStatus() {
-//   int sensorValue = analogRead(BATTERY_SENSE_PIN);
-
-//   // 1M, 470K divider across battery and using internal ADC ref of 1.1V
-//   // Sense point is bypassed with 0.1 uF cap to reduce noise at that point
-//   // ((1e6+470e3)/470e3)*1.1 = Vmax = 3.44 Volts
-//   // 3.44/1023 = Volts per bit = 0.003363075
-
-//   data.batteryPercent = sensorValue / 10;
-//   float batteryV  = sensorValue * 0.003363075;
-// }
 
 void startWirelessCommunication()
 {
