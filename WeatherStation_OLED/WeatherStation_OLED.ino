@@ -86,6 +86,7 @@ struct Smog
 
 void setup()
 {
+  int menuButton, but2, but3, but4, butX, butY, pressed_button;
   Serial.begin(115200);
   Serial1.begin(115200);
   Serial2.begin(9600);
@@ -94,7 +95,12 @@ void setup()
   myGLCD.InitLCD();
   myGLCD.clrScr();
   myGLCD.setFont(SmallFont);
+  myTouch.InitTouch();
+  myTouch.setPrecision(PREC_MEDIUM);
+  myButtons.setTextFont(SmallFont);
   DrawHome();
+  menuButton = myButtons.addButton( 260, 30, 50,  30, "MENU");
+  myButtons.drawButtons();
   if (!clock.begin())
   {
     Serial.println("RTC Error");
@@ -120,8 +126,8 @@ void loop()
     lastDataUpdateTime = GetTime().unixtime;
   }
   
-  Smog smogData = GetSmog(timeData.unixtime);
-  DisplaySmog(smogData);
+  // Smog smogData = GetSmog(timeData.unixtime);
+  // DisplaySmog(smogData);
   DisplayTheTimeToMeasureTheSmog(timeData.unixtime);
   // Serial.println("Data: " + GetMinuts(timeData.day) + "-" + GetMinuts(timeData.month) + "-" + String(timeData.year));
   // Serial.println("Godzina: " + GetMinuts(timeData.hour) + ":" + GetMinuts(timeData.minute));
