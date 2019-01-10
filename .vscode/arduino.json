@@ -1,6 +1,5 @@
 {
-    "board": "arduino:avr:mega",
-    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:megaADK",
     "sketch": "WeatherStation_OLED\\WeatherStation_OLED.ino",
     "port": "COM4"
 }
