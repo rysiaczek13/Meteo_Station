@@ -87,6 +87,7 @@ struct Smog
 
 int menuButton, pressedButton, timeSettingsButton, dateSettingsButton, smogSensorSettingsButton, closeMenuButton;
 int hourUpButton, hourDownButton, minuteUpButton, minuteDownButton, saveButton, cancelButton;
+int dayUpButton, dayDownButton, monthUpButton, monthDownButton, yearUpButton, yearDownButton;
 
 void setup()
 {

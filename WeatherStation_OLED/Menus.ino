@@ -1,13 +1,3 @@
-void CheckClickedButton()
-{
-  pressedButton = myButtons.checkButtons();
-
-  if (pressedButton == menuButton)
-  {
-    MainMenu();
-  }
-};
-
 void MainMenu()
 {
   myGLCD.clrScr();
@@ -19,23 +9,7 @@ void MainMenu()
 
   myButtons.drawButtons();
 
-  while(1)
-  {
-    if (myTouch.dataAvailable())
-    {
-      pressedButton = myButtons.checkButtons();
-
-      if (pressedButton == closeMenuButton)
-      {
-      break;
-      }
-      else if (pressedButton == timeSettingsButton)
-      {
-        SetupTimeMenu();
-        break;
-      }
-    }
-  }
+  MainMenuButtonHendler();
   MainFrame();
 };
 
@@ -53,41 +27,26 @@ void SetupTimeMenu()
 
   myButtons.drawButtons();
 
-  Time newTime = GetTime();
+  SetTimeButtonHendler();
+  MainMenu();
+};
 
-  while(1)
-  {
-    DisplayTime(newTime);
-    if (myTouch.dataAvailable())
-    {
-      pressedButton = myButtons.checkButtons();
+void SetupDateMenu()
+{
+  myGLCD.clrScr();
+  myButtons.deleteAllButtons();
 
-      if (pressedButton == hourUpButton && newTime.hour < 24)
-      {
-          newTime.hour = newTime.hour + 1;
-      }
-      else if (pressedButton == hourDownButton && newTime.hour > 0)
-      {
-        newTime.hour = newTime.hour - 1;
-      }
-      else if (pressedButton == minuteUpButton && newTime.minute <59)
-      {
-        newTime.minute = newTime.minute + 1;
-      }
-      else if (pressedButton == minuteDownButton && newTime.minute > 0)
-      {
-        newTime.minute = newTime.minute - 1;
-      }
-      else if (pressedButton == saveButton)
-      {
-        clock.setDateTime(newTime.year, newTime.month, newTime.day, newTime.hour, newTime.minute, newTime.second);
-        break;
-      }
-      else if (pressedButton == cancelButton)
-      {
-        break;
-      }
-    }
-  }
+  dayUpButton = myButtons.addButton(10, 100, 80, 30, "Dzien +");
+  dayDownButton = myButtons.addButton(10, 140, 80, 30, "Dzien -");
+  monthUpButton = myButtons.addButton(120, 100, 80, 30, "Miesiac +");
+  monthDownButton = myButtons.addButton(120, 140, 80, 30, "Miesiac -");
+  yearUpButton = myButtons.addButton(230, 100, 80, 30, "Rok +");
+  yearDownButton = myButtons.addButton(230, 140, 80, 30, "Rok -");
+  saveButton = myButtons.addButton(220, 200, 80, 30, "Zapisz");
+  cancelButton = myButtons.addButton(10, 200, 80, 30, "Zamknij");
+
+  myButtons.drawButtons();
+
+  SetDateButtonHendler();
   MainMenu();
 };
